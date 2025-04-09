@@ -9,41 +9,27 @@
       background-color: #00FF00;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
-      overflow: hidden;
+    }
+
+    button {
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      background-color: white;
+      color: black;
       cursor: pointer;
-    }
-
-    img {
-      width: 150px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      color: white;
-      font-size: 3rem;
-      text-shadow: 2px 2px 4px #000;
-    }
-
-    .notice {
-      color: white;
-      font-size: 1rem;
-      margin-top: 20px;
-      opacity: 0.5;
+      box-shadow: 0 0 10px #000;
     }
   </style>
 </head>
-<body onclick="startCall()">
+<body>
+  <button onclick="startCall()">Start Call Ring</button>
 
-  <img src="incoming call.gif" alt="Ringing GIF">
-  <h1>Incoming Call...</h1>
-  <div class="notice">(Tap anywhere to hear ring)</div>
-
-  <audio id="ringtone">
+  <audio id="ringtone" loop>
     <source src="ringtone.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -51,22 +37,9 @@
   <script>
     function startCall() {
       const audio = document.getElementById('ringtone');
-
-      // Play for only 1 second
-      audio.currentTime = 0;
-      audio.play().then(() => {
-        setTimeout(() => {
-          audio.pause();
-          audio.currentTime = 0;
-        }, 1000);
-      }).catch(err => {
-        console.warn("Playback error:", err);
-      });
-
-      // Remove listener so it doesn't keep triggering
-      document.body.onclick = null;
+      audio.play();
+      document.querySelector('button').style.display = 'none';
     }
   </script>
-
 </body>
 </html>

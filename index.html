@@ -14,17 +14,6 @@
       font-family: Arial, sans-serif;
     }
 
-    button {
-      font-size: 2rem;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 10px;
-      background-color: white;
-      color: black;
-      cursor: pointer;
-      box-shadow: 0 0 10px #000;
-    }
-
     .incoming-call {
       font-size: 3rem;
       font-weight: bold;
@@ -48,19 +37,17 @@
   </div>
   <div class="incoming-call">Incoming Call...</div>
 
-  <button onclick="startCall()">Start Call Ring</button>
-
   <audio id="ringtone" loop>
     <source src="ringtone.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    function startCall() {
+    // Function to start the ringtone automatically on page load
+    window.onload = function() {
       const audio = document.getElementById('ringtone');
-      audio.play(); // Start the ringtone when the button is clicked
-      document.querySelector('button').style.display = 'none'; // Hide the button after clicking
-    }
+      audio.play(); // Start the ringtone when the page loads
+    };
   </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,6 +14,7 @@
       align-items: center;
       font-family: Arial, sans-serif;
       overflow: hidden;
+      cursor: pointer;
     }
 
     img {
@@ -27,39 +28,44 @@
       font-size: 3rem;
       text-shadow: 2px 2px 4px #000;
     }
+
+    .notice {
+      color: white;
+      font-size: 1rem;
+      margin-top: 20px;
+      opacity: 0.5;
+    }
   </style>
 </head>
-<body>
+<body onclick="startCall()">
 
-  <!-- Replace with your actual GIF -->
   <img src="incoming call.gif" alt="Ringing GIF">
   <h1>Incoming Call...</h1>
+  <div class="notice">(Tap anywhere to hear ring)</div>
 
-  <audio id="ringtone" muted>
+  <audio id="ringtone">
     <source src="ringtone.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    window.addEventListener('load', () => {
+    function startCall() {
       const audio = document.getElementById('ringtone');
 
-      // Start muted to allow autoplay
+      // Play for only 1 second
+      audio.currentTime = 0;
       audio.play().then(() => {
-        // Unmute after a moment
         setTimeout(() => {
-          audio.muted = false;
-
-          // Stop after 1 second
-          setTimeout(() => {
-            audio.pause();
-            audio.currentTime = 0;
-          }, 1000);
-        }, 200); // small delay to help browsers accept unmute
-      }).catch(error => {
-        console.warn("Autoplay failed:", error);
+          audio.pause();
+          audio.currentTime = 0;
+        }, 1000);
+      }).catch(err => {
+        console.warn("Playback error:", err);
       });
-    });
+
+      // Remove listener so it doesn't keep triggering
+      document.body.onclick = null;
+    }
   </script>
 
 </body>
